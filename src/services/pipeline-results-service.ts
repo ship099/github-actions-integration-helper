@@ -275,7 +275,7 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
     }
     core.info('No pipeline findings, exiting and update the github check status to success');
     // update inputs.check_run_id status to success
-    await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
+    //await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
     return;
   }
 
@@ -345,7 +345,7 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
   if (filteredFindingsArray.length === 0) {
     core.info('No pipeline findings after filtering, exiting and update the github check status to success');
     // update inputs.check_run_id status to success
-    await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
+    //await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
     return;
   } else {
     // use octokit to check the language of the source repository. If it is a java project, then
