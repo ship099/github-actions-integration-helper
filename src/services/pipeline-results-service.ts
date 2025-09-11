@@ -378,7 +378,9 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
 
     const annotations = getAnnotations(filteredFindingsArray, javaMaven);
     const maxNumberOfAnnotations = 50;
-
+    if(filteredFindingsArray.length == policyFindings.length ){
+      await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
+    }
     for (let index = 0; index < annotations.length / maxNumberOfAnnotations; index++) {
       const annotationBatch = annotations.slice(index * maxNumberOfAnnotations, (index + 1) * maxNumberOfAnnotations);
       if (annotationBatch.length > 0) {
@@ -394,6 +396,7 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
     }
   }
 }
+
 
 function getAnnotations(pipelineFindings: VeracodePipelineResult.Finding[], javaMaven: boolean): Checks.Annotation[] {
   const annotations: Checks.Annotation[] = [];
