@@ -378,9 +378,13 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
 
     const annotations = getAnnotations(filteredFindingsArray, javaMaven);
     const maxNumberOfAnnotations = 50;
-    if(filteredFindingsArray.length == policyFindings.length ){
-      await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
+
+    //mitigated findings 
+    if(filteredFindingsArray.length !== policyFindings.length ){
+     // await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
+     core.setFailed('Vulneribilities detected')
     }
+
     for (let index = 0; index < annotations.length / maxNumberOfAnnotations; index++) {
       const annotationBatch = annotations.slice(index * maxNumberOfAnnotations, (index + 1) * maxNumberOfAnnotations);
       if (annotationBatch.length > 0) {
