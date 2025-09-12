@@ -380,7 +380,7 @@ export async function preparePipelineResults(inputs: Inputs): Promise<void> {
     const maxNumberOfAnnotations = 50;
 
     //mitigated findings 
-    if(filteredFindingsArray.length !== policyFindings.length ){
+    if(filteredFindingsArray.length !== policyFindings.length && inputs.fail_checks_on_policy == true ){
      // await updateChecks(octokit, checkStatic, Checks.Conclusion.Success, [], 'No pipeline findings');
      core.setFailed('Vulneribilities detected')
     }
